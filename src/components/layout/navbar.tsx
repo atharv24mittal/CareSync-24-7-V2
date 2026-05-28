@@ -1,12 +1,29 @@
+"use client";
+
 import Link from "next/link";
+import { Menu } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 // ─── NAVBAR ──────────────────────────────────────────────────────────────────
 function Navbar() {
   const navItems = [
     { label: "Features", href: "#features" },
-    { label: "AI Doctor", href: "/dashboard/ai-doctor" },
-    { label: "Analytics", href: "/dashboard/analytics" },
-    { label: "Records", href: "/dashboard/records" },
+    {
+      label: "AI Doctor",
+      href: "/dashboard/ai-doctor",
+    },
+    {
+      label: "Analytics",
+      href: "/dashboard/analytics",
+    },
+    {
+      label: "Records",
+      href: "/dashboard/records",
+    },
   ];
 
   return (
@@ -15,23 +32,152 @@ function Navbar() {
         <Link href="/" className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white to-[#00d4aa] bg-clip-text text-transparent" style={{fontFamily:"'Syne',sans-serif"}}>
           CareSync 24/7
         </Link>
+        
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 text-sm text-slate-400">
           {navItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="hover:text-white transition-colors"
-            >
+            <Link key={item.label} href={item.href} className="hover:text-white transition-colors">
               {item.label}
             </Link>
           ))}
         </nav>
-        <div className="flex items-center gap-3">
-          <Link href="/sign-in" className="text-slate-400 hover:text-white text-sm font-medium px-4 py-2 rounded-xl hover:bg-white/5 transition-all">Sign In</Link>
+        
+        {/* Desktop Buttons */}
+        <div className="hidden md:flex items-center gap-3">
+          <Link href="/sign-in" className="text-slate-400 hover:text-white text-sm font-medium px-4 py-2 rounded-xl hover:bg-white/5 transition-all">
+            Sign In
+          </Link>
           <Link href="/dashboard" className="bg-[#1d6ef5] hover:bg-[#2979ff] text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-[0_4px_20px_rgba(29,110,245,.4)] hover:shadow-[0_6px_28px_rgba(29,110,245,.6)] transition-all hover:-translate-y-px">
             Get Started →
           </Link>
         </div>
+
+        {/* Mobile Navigation - Sheet */}
+        <Sheet>
+          <SheetTrigger asChild>
+            <button
+              className="
+                flex items-center justify-center
+                rounded-xl
+                border border-white/10
+                bg-white/[0.04]
+                p-2.5
+                text-white
+                transition-all
+                duration-300
+                hover:bg-white/[0.08]
+                md:hidden
+              "
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </SheetTrigger>
+
+          <SheetContent
+            side="right"
+            className="
+              border-white/[0.08]
+              bg-[#050b1a]/95
+              backdrop-blur-2xl
+              p-0
+              text-white
+            "
+          >
+            <div className="flex h-full flex-col">
+              {/* Top */}
+              <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-5">
+                <Link
+                  href="/"
+                  className="
+                    font-extrabold
+                    text-xl
+                    tracking-tight
+                    bg-gradient-to-r
+                    from-white
+                    to-[#00d4aa]
+                    bg-clip-text
+                    text-transparent
+                  "
+                  style={{fontFamily:"'Syne',sans-serif"}}
+                >
+                  CareSync 24/7
+                </Link>
+              </div>
+
+              {/* Nav Links */}
+              <nav className="flex flex-1 flex-col px-6 py-8">
+                <div className="flex flex-col gap-2">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className="
+                        rounded-2xl
+                        px-4
+                        py-4
+                        text-base
+                        font-medium
+                        text-slate-300
+                        transition-all
+                        duration-300
+                        hover:bg-white/[0.05]
+                        hover:text-white
+                      "
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Bottom CTA Area */}
+                <div className="mt-auto flex flex-col gap-3 pt-10">
+                  <Link
+                    href="/sign-in"
+                    className="
+                      rounded-2xl
+                      border border-white/[0.08]
+                      bg-white/[0.03]
+                      px-4
+                      py-4
+                      text-center
+                      text-sm
+                      font-medium
+                      text-slate-300
+                      transition-all
+                      duration-300
+                      hover:bg-white/[0.05]
+                      hover:text-white
+                    "
+                  >
+                    Sign In
+                  </Link>
+
+                  <Link
+                    href="/dashboard"
+                    className="
+                      rounded-2xl
+                      bg-[#1d6ef5]
+                      px-4
+                      py-4
+                      text-center
+                      text-sm
+                      font-semibold
+                      text-white
+                      shadow-[0_10px_40px_rgba(29,110,245,0.35)]
+                      transition-all
+                      duration-300
+                      hover:-translate-y-0.5
+                      hover:bg-[#2979ff]
+                      hover:shadow-[0_12px_40px_rgba(29,110,245,0.5)]
+                    "
+                  >
+                    Start Free →
+                  </Link>
+                </div>
+              </nav>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   );
@@ -95,7 +241,7 @@ function HeroSection() {
             <div className="bg-[#050b1a] rounded-2xl border border-white/[0.06] p-4 flex flex-col gap-3">
               <div className="flex gap-2.5 items-start">
                 <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#1d6ef5] to-[#00d4aa] flex items-center justify-center flex-shrink-0 text-[10px] font-bold">AI</div>
-                <div className="bg-white/[0.05] rounded-xl p-2.5 text-xs leading-relaxed text-slate-300">Hello! I'm your AI health assistant. How are you feeling today?</div>
+                <div className="bg-white/[0.05] rounded-xl p-2.5 text-xs leading-relaxed text-slate-300">Hello! I&apos;m your AI health assistant. How are you feeling today?</div>
               </div>
               <div className="flex gap-2.5 items-start flex-row-reverse">
                 <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 text-[9px]">You</div>
@@ -108,7 +254,7 @@ function HeroSection() {
                   <span className="text-[#00d4aa]">Urgency: Low ↓</span>
                 </div>
               </div>
-              {/* Typing dots — FIXED with inline animation styles */}
+              {/* Typing dots */}
               <div className="flex gap-2.5 items-start">
                 <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#1d6ef5] to-[#00d4aa] flex-shrink-0 opacity-40" />
                 <div className="bg-white/[0.05] rounded-xl px-3 py-3 flex gap-1 items-center">
@@ -130,7 +276,6 @@ function HeroSection() {
                 <div className="text-xs text-slate-500 mb-2">❤ Heart Rate</div>
                 <div className="font-bold text-2xl" style={{fontFamily:"'Syne',sans-serif"}}>72 <span className="text-sm text-slate-500 font-normal">BPM</span></div>
                 <div className="text-xs text-[#00d4aa] mt-1">↑ Normal range</div>
-                {/* ECG SVG — FIXED with scroll animation */}
                 <svg viewBox="0 0 180 36" className="w-full mt-2 overflow-hidden">
                   <defs>
                     <linearGradient id="ecg" x1="0" y1="0" x2="1" y2="0">
@@ -138,7 +283,6 @@ function HeroSection() {
                       <stop offset="100%" stopColor="#00d4aa" />
                     </linearGradient>
                   </defs>
-                  {/* Double the points so the scroll loop is seamless */}
                   <g style={{ animation: "ecgScroll 3s linear infinite" }}>
                     <polyline
                       fill="none"
@@ -361,6 +505,14 @@ function CTASection() {
 }
 
 // ─── FOOTER ───────────────────────────────────────────────────────────────────
+const footerLinks = [
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+  { label: "Docs", href: "/dashboard" },
+  { label: "GitHub", href: "https://github.com/atharv24mittal/CareSync-24-7-V2", external: true },
+  { label: "Contact", href: "mailto:hello@caresync.dev" },
+];
+
 function Footer() {
   return (
     <footer className="relative z-10 border-t border-white/[0.07] px-8 py-10 flex flex-wrap items-center justify-between gap-6">
@@ -368,8 +520,16 @@ function Footer() {
         CareSync 24/7
       </span>
       <div className="flex gap-6 flex-wrap">
-        {["Privacy","Terms","Docs","GitHub","Contact"].map(l=>(
-          <Link key={l} href="#" className="text-slate-500 hover:text-slate-300 text-sm transition-colors">{l}</Link>
+        {footerLinks.map((link) => (
+          <Link
+            key={link.label}
+            href={link.href}
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
+            className="text-slate-500 hover:text-slate-300 text-sm transition-colors"
+          >
+            {link.label}
+          </Link>
         ))}
       </div>
       <span className="text-slate-600 text-sm">© 2025 CareSync 24/7. All rights reserved.</span>
